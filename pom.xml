@@ -26,6 +26,10 @@
         	<id>osgeo</id>
 			<url>https://repo.osgeo.org/repository/release</url>
         </repository>
+        <repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
     </repositories>
 
 	<properties>
