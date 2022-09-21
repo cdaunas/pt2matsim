@@ -245,7 +245,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
         for (SumoNetworkHandler.Edge edge : sumoHandler.edges.values()) {
 
             // skip unknowns
-            if (edge.type == null || !edge.type.startsWith("highway") || !edge.type.startsWith("railway"))
+            if (edge.type == null || (!edge.type.startsWith("highway") && !edge.type.startsWith("railway")))
                 continue;
 
             Link link = f.createLink(Id.createLinkId(edge.id),
