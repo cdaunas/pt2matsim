@@ -245,7 +245,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
         for (SumoNetworkHandler.Edge edge : sumoHandler.edges.values()) {
 
             // skip unknowns
-            if (edge.type == null || (!edge.type.startsWith("highway") && !edge.type.startsWith("railway")))
+            if (edge.type == null || !edge.type.startsWith("highway"))
                 continue;
 
             Link link = f.createLink(Id.createLinkId(edge.id),
@@ -268,10 +268,10 @@ public class SumoNetworkConverter implements Callable<Integer> {
             	modes.add(TransportMode.car_passenger);
             }
             
-            if (edge.type.startsWith("railway")) 
-            {
-            	modes.add(TransportMode.train);
-            }
+//            if (edge.type.startsWith("railway")) 
+//            {
+//            	modes.add(TransportMode.train);
+//            }
 
             SumoNetworkHandler.Type type = sumoHandler.types.get(edge.type);
 
