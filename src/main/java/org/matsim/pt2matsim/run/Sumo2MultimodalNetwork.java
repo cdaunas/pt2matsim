@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.matsim.contrib.sumo.SumoNetworkConverter;
+import org.matsim.pt2matsim.sumo.SumoNetworkConverter;
 import org.xml.sax.SAXException;
 
 public class Sumo2MultimodalNetwork {
