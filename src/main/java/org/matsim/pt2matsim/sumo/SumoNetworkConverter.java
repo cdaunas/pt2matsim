@@ -245,7 +245,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
         for (SumoNetworkHandler.Edge edge : sumoHandler.edges.values()) {
 
             // skip unknowns
-            if (edge.type == null || !edge.type.startsWith("highway"))
+            if (edge.type == null || (!edge.type.startsWith("highway") && !edge.type.startsWith("railway")))
                 continue;
 
             Link link = f.createLink(Id.createLinkId(edge.id),
@@ -268,10 +268,10 @@ public class SumoNetworkConverter implements Callable<Integer> {
             	modes.add(TransportMode.car_passenger);
             }
             
-//            if (edge.type.startsWith("railway")) 
-//            {
-//            	modes.add(TransportMode.train);
-//            }
+            if (edge.type.startsWith("railway")) 
+            {
+            	modes.add(TransportMode.train);
+            }
 
             SumoNetworkHandler.Type type = sumoHandler.types.get(edge.type);
 
@@ -307,6 +307,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
 
             // set link prop based on MATSim defaults
             LinkProperties prop = linkProperties.get(type.highway);
+            LinkProperties prop2 = linkProperties.get(type.railway);
             double speed = type.speed;
 
             // incoming lane connected to the others
@@ -330,12 +331,18 @@ public class SumoNetworkConverter implements Callable<Integer> {
 
             if (prop == null) {
                 log.warn("Skipping unknown link type: {}", type.highway);
-                continue;
             }
+            else 
+                link.setCapacity(LinkProperties.getLaneCapacity(link.getLength(), prop) * link.getNumberOfLanes());
 
+            
+            if (prop2 == null) {
+                log.warn("Skipping unknown link type: {}", type.railway);
+            }
+            else 
+                link.setCapacity(LinkProperties.getLaneCapacity(link.getLength(), prop2) * link.getNumberOfLanes());
+           
             link.setFreespeed(LinkProperties.calculateSpeedIfSpeedTag(speed, freeSpeedFactor));
-            link.setCapacity(LinkProperties.getLaneCapacity(link.getLength(), prop) * link.getNumberOfLanes());
-
             lanes.addLanesToLinkAssignment(l2l);
             network.addLink(link);
         }
