@@ -434,7 +434,6 @@ public class SumoNetworkHandler extends DefaultHandler {
          */
         final String highway;
         final String railway;
-        
 
         Type(String id, String allow, String disallow, double speed) {
             this.id = id;
@@ -453,17 +452,17 @@ public class SumoNetworkHandler extends DefaultHandler {
                 highway = id.substring(8);
             } else
                 highway = null;
-			
-            if (id.startsWith("railway.")) {
-                // split compound types
-                if (id.contains("|"))
+            
+            if(id.startsWith("railway.")) {
+            	// split compound types
+            	if (id.contains("|"))
                     id = id.split("\\|")[0];
 
                 railway = id.substring(8);
-            } else
-                railway = null;
-            
+            } else 
+            	railway = null;
         }
     }
+    
 }
 
