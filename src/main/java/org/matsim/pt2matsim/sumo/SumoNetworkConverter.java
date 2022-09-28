@@ -272,6 +272,12 @@ public class SumoNetworkConverter implements Callable<Integer> {
             {
             	modes.add(TransportMode.train);
             }
+            
+            if (edge.type.startsWith("railway.light_rail")) 
+            {
+            	modes.add(TransportMode.tram);
+            	modes.add(TransportMode.subway);
+            } 
 
             SumoNetworkHandler.Type type = sumoHandler.types.get(edge.type);
 
@@ -292,6 +298,15 @@ public class SumoNetworkConverter implements Callable<Integer> {
                 
             if (type.allow.contains("coach") || (type.allow.isEmpty() && !type.disallow.contains("coach")))
                 modes.add(TransportMode.coach);
+                modes.add(TransportMode.pt);
+                
+
+            if (type.allow.contains("rail_urban") || (type.allow.isEmpty() && !type.disallow.contains("rail_urban")))
+                modes.add(TransportMode.subway);
+                modes.add(TransportMode.pt);
+
+            if (type.allow.contains("tram") || (type.allow.isEmpty() && !type.disallow.contains("tram")))
+            	modes.add(TransportMode.tram);
                 modes.add(TransportMode.pt);
 
             link.setAllowedModes(modes);

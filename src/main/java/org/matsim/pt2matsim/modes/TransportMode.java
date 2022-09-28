@@ -20,6 +20,9 @@ public final class TransportMode {
 	public static final String coach = "coach";
 	public static final String pedestrian = "pedestrian";
 	public static final String rail = "rail";
+	public static final String subway = "subway";
+	public static final String tram = "tram";
+	
 
 
 	@Deprecated // use non_network_walk
