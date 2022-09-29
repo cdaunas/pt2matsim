@@ -324,12 +324,9 @@ public class SumoNetworkConverter implements Callable<Integer> {
             
             LinkProperties prop = null;
           
-            if (edge.type.startsWith("highway"))
+            if (edge.type.startsWith("highway") || edge.type.startsWith("railway"))
             	prop = linkProperties.get(type.highway);
-            
-            if (edge.type.startsWith("railway"))
-            	prop = linkProperties.get(type.railway);
-            
+             
             double speed = type.speed;
 
             // incoming lane connected to the others
