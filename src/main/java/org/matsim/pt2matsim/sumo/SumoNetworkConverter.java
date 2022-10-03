@@ -322,8 +322,15 @@ public class SumoNetworkConverter implements Callable<Integer> {
 
             // set link prop based on MATSim defaults
             
-            LinkProperties prop = linkProperties.get(type.highway);
-             
+
+            LinkProperties prop = null;
+          
+            if (edge.type.startsWith("highway"))
+            	prop = linkProperties.get(type.highway);
+            
+            if (edge.type.startsWith("railway"))
+            	prop = linkProperties.get(type.railway);
+            
             double speed = type.speed;
 
             // incoming lane connected to the others
