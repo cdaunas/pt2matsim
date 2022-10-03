@@ -320,11 +320,11 @@ public class SumoNetworkConverter implements Callable<Integer> {
                 l2l.addLane(mLane);
             }
 
-//            // set link prop based on MATSim defaults
-//            LinkProperties prop = null;
-//            
-//            if (edge.type.startsWith("highway"))
-//            	prop = linkProperties.get(type.highway);
+            // set link prop based on MATSim defaults
+            LinkProperties prop = null;
+            
+            if (edge.type.startsWith("highway"))
+            	prop = linkProperties.get(type.highway);
             
             double speed = type.speed;
 
@@ -347,13 +347,13 @@ public class SumoNetworkConverter implements Callable<Integer> {
 
             link.getAttributes().putAttribute(ALLOWED_SPEED, speed);
 
-//            if (prop == null) {
-//                log.warn("Skipping unknown link type");
-//                continue;
-//            }
+            if (prop == null) {
+                log.warn("Skipping unknown link type");
+                continue;
+            }
             
-            link.setFreespeed(7);
-            link.setCapacity(600);
+            link.setFreespeed(LinkProperties.calculateSpeedIfSpeedTag(speed, freeSpeedFactor));
+            link.setCapacity(LinkProperties.getLaneCapacity(link.getLength(), prop) * link.getNumberOfLanes());
 
             lanes.addLanesToLinkAssignment(l2l);
             network.addLink(link);
