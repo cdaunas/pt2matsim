@@ -31,7 +31,7 @@ public class Sumo2MultimodalNetwork {
 		ArrayList<Path> inputs = new ArrayList<Path>();
 		inputs.add(input);
 		
-		SumoNetworkConverter converter = SumoNetworkConverter.newInstance(inputs, output, "EPSG:4326", "EPSG:2154");
+		SumoNetworkConverter converter = SumoNetworkConverter.newInstance(inputs, output, "WGS84", "EPSG:2154");
 		
 		try { converter.call();	} 
 		catch (ParserConfigurationException | SAXException | IOException e) { e.printStackTrace(); } 
