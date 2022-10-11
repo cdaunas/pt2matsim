@@ -271,8 +271,12 @@ public class SumoNetworkConverter implements Callable<Integer> {
             if (edge.type.startsWith("railway")) 
             {
             	modes.add(TransportMode.train);
-            	modes.add(TransportMode.tram);
-            	modes.add(TransportMode.subway);
+            }
+            
+            if (edge.type.startsWith("railway.light_rail"))
+            {
+                modes.add(TransportMode.tram);
+                modes.add(TransportMode.subway);
             }
             
             SumoNetworkHandler.Type type = sumoHandler.types.get(edge.type);
