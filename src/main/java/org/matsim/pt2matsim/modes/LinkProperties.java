@@ -133,7 +133,15 @@ public class LinkProperties {
 		return new LinkProperties(LEVEL_TRAM, 1, 10 / 3.6, 300, false);
 	}
 	
+	static LinkProperties createTramLink() {
+		return new LinkProperties(LEVEL_TRAM, 1, 10 / 3.6, 300, false);
+	}
+	
 	static LinkProperties createSubway() {
+		return new LinkProperties(LEVEL_SUBWAY, 1, 10 / 3.6, 300, false);
+	}
+	
+	static LinkProperties createSubwayLink() {
 		return new LinkProperties(LEVEL_SUBWAY, 1, 10 / 3.6, 300, false);
 	}
 	
@@ -141,7 +149,15 @@ public class LinkProperties {
 		return new LinkProperties(LEVEL_LIGHT_RAIL, 1, 10 / 3.6, 300, false);
 	}
 	
+	static LinkProperties createLightRailLink() {
+		return new LinkProperties(LEVEL_LIGHT_RAIL, 1, 10 / 3.6, 300, false);
+	}
+	
 	static LinkProperties createRail() {
+		return new LinkProperties(LEVEL_RAIL, 1, 10 / 3.6, 300, false);
+	}
+	
+	static LinkProperties createRailLink() {
 		return new LinkProperties(LEVEL_RAIL, 1, 10 / 3.6, 300, false);
 	}
 	
@@ -169,9 +185,13 @@ public class LinkProperties {
 		result.put(OsmTags.LIVING_STREET, createLivingStreet());
 		result.put(OsmTags.PRESERVED, createPreserved());
 		result.put(OsmTags.TRAM, createTram());
+		result.put(OsmTags.TRAM, createTramLink());
 		result.put(OsmTags.SUBWAY, createSubway());
+		result.put(OsmTags.SUBWAY, createSubwayLink());
 		result.put(OsmTags.LIGHT_RAIL, createLightRail());
+		result.put(OsmTags.LIGHT_RAIL, createLightRailLink());
 		result.put(OsmTags.RAIL, createRail());
+		result.put(OsmTags.RAIL, createRailLink());
 		result.put(OsmTags.HIGHSPEED, createHighspeed());
 		return result;
 	}
