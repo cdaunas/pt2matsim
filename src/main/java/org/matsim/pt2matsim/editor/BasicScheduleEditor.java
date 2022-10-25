@@ -413,7 +413,7 @@ public class BasicScheduleEditor implements ScheduleEditor {
     			new_modes.add(TransportMode.train);
 			}
 			newLink.setAllowedModes(new_modes);
-			/**fin modifications */
+			
 
 			/**newLink.setAllowedModes(attributeLink.getAllowedModes());*/
 			newLink.setCapacity(attributeLink.getCapacity());
