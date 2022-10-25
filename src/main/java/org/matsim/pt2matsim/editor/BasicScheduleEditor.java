@@ -42,6 +42,12 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**modifications */
+import java.io.*;
+import org.matsim.pt2matsim.modes.TransportMode;
+import org.matsim.pt2matsim.osm.lib.OsmTags;
+
+
 /**
  * Implementation of a schedule editor. Provides methods for
  * rerouting and adapting schedules via a csv "command file".
@@ -383,7 +389,32 @@ public class BasicScheduleEditor implements ScheduleEditor {
 		if(attributeLinkId != null) {
 			Link attributeLink = network.getLinks().get(attributeLinkId);
 
-			newLink.setAllowedModes(attributeLink.getAllowedModes());
+			/**modifications */
+			Set<String> new_modes = Sets.newHashSet();
+			Set<String> modes = attributeLink.getAllowedModes();
+			if (modes.contains("bus"))
+			{   
+    			new_modes.add(TransportMode.bus);
+    			new_modes.add(TransportMode.car);
+    			new_modes.add(TransportMode.car_passenger);
+    			new_modes.add(TransportMode.ride);
+    			new_modes.add(TransportMode.pedestrian);
+    			new_modes.add(TransportMode.pt);
+    			new_modes.add(TransportMode.coach);
+    			new_modes.add(TransportMode.walk);
+    			new_modes.add(TransportMode.bike);
+			}
+			if (modes.contains("rail"))
+			{   
+    			new_modes.add(TransportMode.rail);
+    			new_modes.add(TransportMode.tram);
+    			new_modes.add(TransportMode.pt);
+    			new_modes.add(TransportMode.subway);
+    			new_modes.add(TransportMode.train);
+			}
+			newLink.setAllowedModes(new_modes);
+
+			/**newLink.setAllowedModes(attributeLink.getAllowedModes());*/
 			newLink.setCapacity(attributeLink.getCapacity());
 			newLink.setFreespeed(attributeLink.getFreespeed());
 			newLink.setNumberOfLanes(attributeLink.getNumberOfLanes());
