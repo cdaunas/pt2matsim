@@ -43,6 +43,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**modifications */
+import com.google.common.collect.Sets;
 import java.io.*;
 import org.matsim.pt2matsim.modes.TransportMode;
 import org.matsim.pt2matsim.osm.lib.OsmTags;
