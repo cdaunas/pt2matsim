@@ -42,11 +42,11 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**modifications */
+/**modifications 
 import com.google.common.collect.Sets;
 import java.io.*;
 import org.matsim.pt2matsim.modes.TransportMode;
-import org.matsim.pt2matsim.osm.lib.OsmTags;
+import org.matsim.pt2matsim.osm.lib.OsmTags;*/
 
 
 /**
@@ -390,7 +390,7 @@ public class BasicScheduleEditor implements ScheduleEditor {
 		if(attributeLinkId != null) {
 			Link attributeLink = network.getLinks().get(attributeLinkId);
 
-			/**modifications */
+			/**modifications 
 			Set<String> new_modes = Sets.newHashSet();
 			Set<String> modes = attributeLink.getAllowedModes();
 			if (modes.contains("bus"))
@@ -425,10 +425,10 @@ public class BasicScheduleEditor implements ScheduleEditor {
     			new_modes.add(TransportMode.walk);
     			new_modes.add(TransportMode.bike);
 			}
-			newLink.setAllowedModes(new_modes);
+			newLink.setAllowedModes(new_modes);*/
 			
 
-			/**newLink.setAllowedModes(attributeLink.getAllowedModes());*/
+			newLink.setAllowedModes(attributeLink.getAllowedModes());
 			newLink.setCapacity(attributeLink.getCapacity());
 			newLink.setFreespeed(attributeLink.getFreespeed());
 			newLink.setNumberOfLanes(attributeLink.getNumberOfLanes());
