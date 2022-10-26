@@ -413,6 +413,18 @@ public class BasicScheduleEditor implements ScheduleEditor {
     			new_modes.add(TransportMode.subway);
     			new_modes.add(TransportMode.train);
 			}
+			if (!modes.contains("rail") && !modes.contains("bus"))
+			{
+				new_modes.add(TransportMode.bus);
+    			new_modes.add(TransportMode.car);
+    			new_modes.add(TransportMode.car_passenger);
+    			new_modes.add(TransportMode.ride);
+    			new_modes.add(TransportMode.pedestrian);
+    			new_modes.add(TransportMode.pt);
+    			new_modes.add(TransportMode.coach);
+    			new_modes.add(TransportMode.walk);
+    			new_modes.add(TransportMode.bike);
+			}
 			newLink.setAllowedModes(new_modes);
 			
 
