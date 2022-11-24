@@ -266,21 +266,44 @@ public class SumoNetworkConverter implements Callable<Integer> {
             	modes.add(TransportMode.ride);
             	modes.add(TransportMode.car);
             	modes.add(TransportMode.car_passenger);
+                if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
+                    modes.add(TransportMode.pedestrian);
+                    modes. add(TransportMode.walk);
+                if (type.allow.contains("bus") || (type.allow.isEmpty() && !type.disallow.contains("bus")))
+                    modes.add(TransportMode.bus);
+                    modes.add(TransportMode.pt);                
+                if (type.allow.contains("coach") || (type.allow.isEmpty() && !type.disallow.contains("coach")))
+                    modes.add(TransportMode.coach);
+                    modes.add(TransportMode.pt);
+                if (type.allow.contains("bicycle") || (type.allow.isEmpty() && !type.disallow.contains("bicycle")))
+                    modes.add(TransportMode.bike);
             }
             
             if (edge.type.startsWith("railway")) 
             {
             	modes.add(TransportMode.train);
+                if (type.allow.contains("rail_urban") || (type.allow.isEmpty() && !type.disallow.contains("rail_urban")))
+                    modes.add(TransportMode.subway);
+                    modes.add(TransportMode.pt);
+                if (type.allow.contains("tram") || (type.allow.isEmpty() && !type.disallow.contains("tram")))
+            	    modes.add(TransportMode.tram);
+                    modes.add(TransportMode.pt);
+                if (type.allow.contains("rail") || (type.allow.isEmpty() && !type.disallow.contains("rail")))
+                    modes.add(TransportMode.rail);
+                    modes.add(TransportMode.pt);
+                if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
+                    modes.add(TransportMode.pedestrian);
+                    modes. add(TransportMode.walk);
             }
-            
+            /**
             if (edge.type.startsWith("railway.light_rail"))
             {
                 modes.add(TransportMode.tram);
                 modes.add(TransportMode.subway);
             }
-            
+            */
             SumoNetworkHandler.Type type = sumoHandler.types.get(edge.type);
-
+            /**
             if (type.allow.contains("bicycle") || (type.allow.isEmpty() && !type.disallow.contains("bicycle")))
                 modes.add(TransportMode.bike);
             
@@ -308,7 +331,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
             if (type.allow.contains("tram") || (type.allow.isEmpty() && !type.disallow.contains("tram")))
             	modes.add(TransportMode.tram);
                 modes.add(TransportMode.pt);
-
+            */
             link.setAllowedModes(modes);
             link.setLength(edge.getLength());
             LanesToLinkAssignment l2l = lf.createLanesToLinkAssignment(link.getId());
