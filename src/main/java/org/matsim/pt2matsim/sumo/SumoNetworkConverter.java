@@ -261,6 +261,8 @@ public class SumoNetworkConverter implements Callable<Integer> {
             link.setNumberOfLanes(edge.lanes.size());
             Set<String> modes = Sets.newHashSet();
             
+            SumoNetworkHandler.Type type = sumoHandler.types.get(edge.type);
+
             if (edge.type.startsWith("highway")) 
             { 
             	modes.add(TransportMode.ride);
@@ -301,9 +303,9 @@ public class SumoNetworkConverter implements Callable<Integer> {
                 modes.add(TransportMode.tram);
                 modes.add(TransportMode.subway);
             }
-            */
+            
             SumoNetworkHandler.Type type = sumoHandler.types.get(edge.type);
-            /**
+            
             if (type.allow.contains("bicycle") || (type.allow.isEmpty() && !type.disallow.contains("bicycle")))
                 modes.add(TransportMode.bike);
             
