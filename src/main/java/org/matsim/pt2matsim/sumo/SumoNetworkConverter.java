@@ -242,11 +242,20 @@ public class SumoNetworkConverter implements Callable<Integer> {
         // add additional service tag
         linkProperties.put(OsmTags.SERVICE, new LinkProperties(LinkProperties.LEVEL_LIVING_STREET, 1,15 / 3.6, 450, false));
 
-        for (SumoNetworkHandler.Edge edge : sumoHandler.edges.values()) {
+        log.info("Start For loop over edges");
+        int nb_unknows = 0;
+        int nb_railways = 0;
+        int nb_highways = 0;
 
+        for (SumoNetworkHandler.Edge edge : sumoHandler.edges.values()) {
+            
+            
             // skip unknowns
             if (edge.type == null || (!edge.type.startsWith("highway") && !edge.type.startsWith("railway")))
+                log.info("unknow edge type found");
+                nb_unknows = nb_unknows+1;
                 continue;
+                
 
             Link link = f.createLink(Id.createLinkId(edge.id),
                     createNode(network, sumoHandler, edge.from),
@@ -265,7 +274,9 @@ public class SumoNetworkConverter implements Callable<Integer> {
 
             if (edge.type.startsWith("highway")) 
             { 
-            	modes.add(TransportMode.ride);
+            	nb_highways = nb_highways+1;
+
+                modes.add(TransportMode.ride);
             	modes.add(TransportMode.car);
             	modes.add(TransportMode.car_passenger);
                 if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
@@ -283,7 +294,9 @@ public class SumoNetworkConverter implements Callable<Integer> {
             
             if (edge.type.startsWith("railway")) 
             {
-            	modes.add(TransportMode.train);
+            	nb_railways = nb_railways+1;
+                log.info("railway type edge found");
+                modes.add(TransportMode.train);
                 if (type.allow.contains("rail_urban") || (type.allow.isEmpty() && !type.disallow.contains("rail_urban")))
                     modes.add(TransportMode.subway);
                     modes.add(TransportMode.pt);
@@ -334,6 +347,10 @@ public class SumoNetworkConverter implements Callable<Integer> {
             	modes.add(TransportMode.tram);
                 modes.add(TransportMode.pt);
             */
+            log.info("number of unknow edge type found: ",nb_unknows);
+            log.info("number of highway edge type found: ",nb_highways);
+            log.info("number of railway edge typ found: ",nb_railways);
+
             link.setAllowedModes(modes);
             link.setLength(edge.getLength());
             LanesToLinkAssignment l2l = lf.createLanesToLinkAssignment(link.getId());
