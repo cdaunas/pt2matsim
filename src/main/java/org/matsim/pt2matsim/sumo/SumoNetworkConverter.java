@@ -217,7 +217,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
     public SumoNetworkHandler convert(Network network, Lanes lanes) throws ParserConfigurationException, SAXException, IOException {
 
         log.info("Parsing SUMO network");
-
+        lof.info("Parsin SUMO network2");
         SumoNetworkHandler sumoHandler = SumoNetworkHandler.read(input.get(0).toFile());
         log.info("Parsed {} edges with {} junctions", sumoHandler.edges.size(), sumoHandler.junctions.size());
 
