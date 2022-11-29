@@ -363,9 +363,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
             	modes.add(TransportMode.tram);
                 modes.add(TransportMode.pt);
             */
-            log.info("number of unknow edge type found: ", nb_unknows);
-            log.info("number of highway edge type found: ",nb_highways);
-            log.info("number of railway edge type found: ", nb_railways);
+            
 
     
 
@@ -423,6 +421,10 @@ public class SumoNetworkConverter implements Callable<Integer> {
             lanes.addLanesToLinkAssignment(l2l);
             network.addLink(link);
         }
+
+        log.info("number of unknow edge type found: ", nb_unknows);
+        log.info("number of highway edge type found: ",nb_highways);
+        log.info("number of railway edge type found: ", nb_railways);
 
         if (shapeFile != null) {
             Geometry shp = calculateNetworkArea(shapeFile);
