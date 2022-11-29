@@ -242,19 +242,12 @@ public class SumoNetworkConverter implements Callable<Integer> {
         // add additional service tag
         linkProperties.put(OsmTags.SERVICE, new LinkProperties(LinkProperties.LEVEL_LIVING_STREET, 1,15 / 3.6, 450, false));
 
-        log.info("Start For loop over edges");
-        int nb_unknows = 0;
-        int nb_railways = 0;
-        int nb_highways = 0;
-
+    
         for (SumoNetworkHandler.Edge edge : sumoHandler.edges.values()) {
             
             
             // skip unknowns
             if (edge.type == null || (!edge.type.startsWith("highway") && !edge.type.startsWith("railway"))){
-                
-                log.info("unknow type edge found ");
-                nb_unknows = nb_unknows+1;
                 continue;
             }   
 
@@ -275,8 +268,6 @@ public class SumoNetworkConverter implements Callable<Integer> {
 
             if (edge.type.startsWith("highway")) 
             { 
-            	nb_highways = nb_highways+1;
-
                 modes.add(TransportMode.ride);
             	modes.add(TransportMode.car);
             	modes.add(TransportMode.car_passenger);
@@ -301,9 +292,6 @@ public class SumoNetworkConverter implements Callable<Integer> {
             
             if (edge.type.startsWith("railway")) 
             {
-            	nb_railways = nb_railways+1;
-                log.info("railway type edge found ");
-            
                 modes.add(TransportMode.train);
                 if (type.allow.contains("rail_urban") || (type.allow.isEmpty() && !type.disallow.contains("rail_urban")))
                 {
@@ -326,46 +314,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
                     modes. add(TransportMode.walk);
                 }            
             }
-            /**
-            if (edge.type.startsWith("railway.light_rail"))
-            {
-                modes.add(TransportMode.tram);
-                modes.add(TransportMode.subway);
-            }
-            
-            SumoNetworkHandler.Type type = sumoHandler.types.get(edge.type);
-            
-            if (type.allow.contains("bicycle") || (type.allow.isEmpty() && !type.disallow.contains("bicycle")))
-                modes.add(TransportMode.bike);
-            
-            if (type.allow.contains("rail") || (type.allow.isEmpty() && !type.disallow.contains("rail")))
-                modes.add(TransportMode.rail);
-                modes.add(TransportMode.pt);
-
-            if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
-                modes.add(TransportMode.pedestrian);
-                modes. add(TransportMode.walk);
-
-            if (type.allow.contains("bus") || (type.allow.isEmpty() && !type.disallow.contains("bus")))
-                modes.add(TransportMode.bus);
-                modes.add(TransportMode.pt);  
-                
-            if (type.allow.contains("coach") || (type.allow.isEmpty() && !type.disallow.contains("coach")))
-                modes.add(TransportMode.coach);
-                modes.add(TransportMode.pt);
-         
-
-            if (type.allow.contains("rail_urban") || (type.allow.isEmpty() && !type.disallow.contains("rail_urban")))
-                modes.add(TransportMode.subway);
-                modes.add(TransportMode.pt);
-
-            if (type.allow.contains("tram") || (type.allow.isEmpty() && !type.disallow.contains("tram")))
-            	modes.add(TransportMode.tram);
-                modes.add(TransportMode.pt);
-            */
-            
-
-    
+           
 
             link.setAllowedModes(modes);
             link.setLength(edge.getLength());
@@ -422,9 +371,6 @@ public class SumoNetworkConverter implements Callable<Integer> {
             network.addLink(link);
         }
 
-        log.info("number of unknow edge type found: ", nb_unknows);
-        log.info("number of highway edge type found: ",nb_highways);
-        log.info("number of railway edge type found: ", nb_railways);
 
         if (shapeFile != null) {
             Geometry shp = calculateNetworkArea(shapeFile);
