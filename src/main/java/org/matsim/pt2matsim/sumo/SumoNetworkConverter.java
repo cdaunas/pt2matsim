@@ -216,7 +216,6 @@ public class SumoNetworkConverter implements Callable<Integer> {
      */
     public SumoNetworkHandler convert(Network network, Lanes lanes) throws ParserConfigurationException, SAXException, IOException {
 
-        log.info("Parsing SUMO network2");
         log.info("Parsing SUMO network");
         
         SumoNetworkHandler sumoHandler = SumoNetworkHandler.read(input.get(0).toFile());
@@ -244,7 +243,6 @@ public class SumoNetworkConverter implements Callable<Integer> {
         linkProperties.put(OsmTags.SERVICE, new LinkProperties(LinkProperties.LEVEL_LIVING_STREET, 1,15 / 3.6, 450, false));
 
         log.info("Start For loop over edges");
-        System.out.printf("'%s' %n","Start For loop over edges ");
         int nb_unknows = 0;
         int nb_railways = 0;
         int nb_highways = 0;
@@ -255,7 +253,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
             // skip unknowns
             if (edge.type == null || (!edge.type.startsWith("highway") && !edge.type.startsWith("railway")))
                 
-                System.out.printf("'%s' %n","unknow type edge found ");
+                log.info("unknow type edge found ");
                 nb_unknows = nb_unknows+1;
                 continue;
                 
@@ -298,7 +296,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
             if (edge.type.startsWith("railway")) 
             {
             	nb_railways = nb_railways+1;
-                System.out.printf("'%s' %n","railway type edge found ");
+                log.info("railway type edge found ");
             
                 modes.add(TransportMode.train);
                 if (type.allow.contains("rail_urban") || (type.allow.isEmpty() && !type.disallow.contains("rail_urban")))
@@ -351,12 +349,9 @@ public class SumoNetworkConverter implements Callable<Integer> {
             	modes.add(TransportMode.tram);
                 modes.add(TransportMode.pt);
             */
-            System.out.printf("'%s' %n","number of unknow edge type found: ");
-            System.out.println(nb_unknows);
-            System.out.printf("'%s' %n","number of highway edge type found: ");
-            System.out.println(nb_highways);
-            System.out.printf("'%s' %n","number of railway edge type found: ");
-            System.out.println(nb_railways);
+            log.info("number of unknow edge type found: ", nb_unknows);
+            log.info("number of highway edge type found: ",nb_highways);
+            log.info("number of railway edge type found: ", nb_railways);
 
     
 
