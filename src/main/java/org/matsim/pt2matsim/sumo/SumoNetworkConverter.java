@@ -251,12 +251,12 @@ public class SumoNetworkConverter implements Callable<Integer> {
             
             
             // skip unknowns
-            if (edge.type == null || (!edge.type.startsWith("highway") && !edge.type.startsWith("railway")))
+            if (edge.type == null || (!edge.type.startsWith("highway") && !edge.type.startsWith("railway"))){
                 
                 log.info("unknow type edge found ");
                 nb_unknows = nb_unknows+1;
                 continue;
-                
+            }   
 
             Link link = f.createLink(Id.createLinkId(edge.id),
                     createNode(network, sumoHandler, edge.from),
@@ -281,14 +281,20 @@ public class SumoNetworkConverter implements Callable<Integer> {
             	modes.add(TransportMode.car);
             	modes.add(TransportMode.car_passenger);
                 if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
+                {
                     modes.add(TransportMode.pedestrian);
                     modes. add(TransportMode.walk);
+                }
                 if (type.allow.contains("bus") || (type.allow.isEmpty() && !type.disallow.contains("bus")))
+                {
                     modes.add(TransportMode.bus);
                     modes.add(TransportMode.pt);                
+                }
                 if (type.allow.contains("coach") || (type.allow.isEmpty() && !type.disallow.contains("coach")))
+                {
                     modes.add(TransportMode.coach);
                     modes.add(TransportMode.pt);
+                }
                 if (type.allow.contains("bicycle") || (type.allow.isEmpty() && !type.disallow.contains("bicycle")))
                     modes.add(TransportMode.bike);
             }
@@ -300,17 +306,25 @@ public class SumoNetworkConverter implements Callable<Integer> {
             
                 modes.add(TransportMode.train);
                 if (type.allow.contains("rail_urban") || (type.allow.isEmpty() && !type.disallow.contains("rail_urban")))
+                {
                     modes.add(TransportMode.subway);
                     modes.add(TransportMode.pt);
+                }
                 if (type.allow.contains("tram") || (type.allow.isEmpty() && !type.disallow.contains("tram")))
-            	    modes.add(TransportMode.tram);
+            	{
+                    modes.add(TransportMode.tram);
                     modes.add(TransportMode.pt);
+                }
                 if (type.allow.contains("rail") || (type.allow.isEmpty() && !type.disallow.contains("rail")))
+                {
                     modes.add(TransportMode.rail);
                     modes.add(TransportMode.pt);
+                }
                 if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
+                {
                     modes.add(TransportMode.pedestrian);
                     modes. add(TransportMode.walk);
+                }            
             }
             /**
             if (edge.type.startsWith("railway.light_rail"))
