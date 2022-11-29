@@ -274,7 +274,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
                 if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
                 {
                     modes.add(TransportMode.pedestrian);
-                    modes. add(TransportMode.walk);
+                    modes.add(TransportMode.walk);
                 }
                 if (type.allow.contains("bus") || (type.allow.isEmpty() && !type.disallow.contains("bus")))
                 {
@@ -311,7 +311,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
                 if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
                 {
                     modes.add(TransportMode.pedestrian);
-                    modes. add(TransportMode.walk);
+                    modes.add(TransportMode.walk);
                 }            
             }
            
