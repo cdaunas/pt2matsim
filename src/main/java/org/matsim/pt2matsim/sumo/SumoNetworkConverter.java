@@ -10,7 +10,7 @@ import org.matsim.api.core.v01.Coord;
 import org.matsim.api.core.v01.Id;
 import org.matsim.pt2matsim.modes.LinkProperties;
 import org.matsim.pt2matsim.modes.TransportMode;
-import org.matsim.core.network.algorithms.NetworkCleaner;
+import org.matsim.pt2matsim.sumo.NetworkCleaner;
 import org.matsim.pt2matsim.osm.lib.OsmTags;
 import org.matsim.api.core.v01.network.*;
 import org.matsim.core.network.NetworkUtils;
@@ -388,7 +388,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
         }
         
         // clean up network
-        //new NetworkCleaner().run(network);
+        new NetworkCleaner().run(network);
         
         // also clean lanes
         log.info("start cleaning lanes");
