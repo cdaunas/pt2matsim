@@ -386,10 +386,10 @@ public class SumoNetworkConverter implements Callable<Integer> {
                 }
             }
         }
-        /**
+        
         // clean up network
         new NetworkCleaner().run(network);
-
+        /**
         // also clean lanes
         lanes.getLanesToLinkAssignments().keySet().removeIf(l2l -> !network.getLinks().containsKey(l2l));
 
