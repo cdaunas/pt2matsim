@@ -13,7 +13,7 @@ import org.matsim.pt2matsim.modes.TransportMode;
 import org.matsim.pt2matsim.osm.lib.OsmTags;
 import org.matsim.api.core.v01.network.*;
 import org.matsim.core.network.NetworkUtils;
-import org.matsim.core.network.algorithms.NetworkCleaner;
+import org.matsim.pt2matsim.sumo.NetworkCleaner;
 import org.matsim.core.utils.geometry.CoordinateTransformation;
 import org.matsim.core.utils.geometry.geotools.MGC;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
