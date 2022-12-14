@@ -10,7 +10,7 @@ import org.matsim.api.core.v01.Coord;
 import org.matsim.api.core.v01.Id;
 import org.matsim.pt2matsim.modes.LinkProperties;
 import org.matsim.pt2matsim.modes.TransportMode;
-import org.matsim.pt2matsim.modes.NetworkCleaner;
+//import org.matsim.pt2matsim.modes.NetworkCleaner;
 import org.matsim.pt2matsim.osm.lib.OsmTags;
 import org.matsim.api.core.v01.network.*;
 import org.matsim.core.network.NetworkUtils;
@@ -137,7 +137,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
         Lanes lanes = LanesUtils.createLanesContainer();
 
         SumoNetworkHandler handler = convert(network, lanes);
-
+        log.info("end conversion");
         calculateLaneCapacities(network, lanes);
 
         // This needs to run without errors, otherwise network is broken
@@ -388,9 +388,10 @@ public class SumoNetworkConverter implements Callable<Integer> {
         }
         
         // clean up network
-        new NetworkCleaner().run(network);
-        /**
+        //new NetworkCleaner().run(network);
+        
         // also clean lanes
+        log.info("start cleaning lanes");
         lanes.getLanesToLinkAssignments().keySet().removeIf(l2l -> !network.getLinks().containsKey(l2l));
 
         for (List<SumoNetworkHandler.Connection> connections : sumoHandler.connections.values()) {
@@ -414,7 +415,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
                 lane.addToLinkId(toLink);
             }
         }
-
+        log.info("end cleaning lanes");
         int removed = 0;
 
         Iterator<LanesToLinkAssignment> it = lanes.getLanesToLinkAssignments().values().iterator();
@@ -445,7 +446,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
             }
         }
 
-        log.info("Removed {} superfluous lanes, total={}", removed, lanes.getLanesToLinkAssignments().size()); */
+        log.info("Removed {} superfluous lanes, total={}", removed, lanes.getLanesToLinkAssignments().size());
         return sumoHandler;
         
     }
