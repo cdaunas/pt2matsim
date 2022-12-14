@@ -445,9 +445,9 @@ public class SumoNetworkConverter implements Callable<Integer> {
             }
         }
 
-        log.info("Removed {} superfluous lanes, total={}", removed, lanes.getLanesToLinkAssignments().size());
+        log.info("Removed {} superfluous lanes, total={}", removed, lanes.getLanesToLinkAssignments().size()); */
         return sumoHandler;
-        */
+        
     }
 
     private void writeInductionLoops(File file, SumoNetworkHandler other) throws IOException {
