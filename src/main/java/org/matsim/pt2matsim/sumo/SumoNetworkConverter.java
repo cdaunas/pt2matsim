@@ -297,16 +297,19 @@ public class SumoNetworkConverter implements Callable<Integer> {
                 {
                     modes.add(TransportMode.subway);
                     modes.add(TransportMode.pt);
+                    log.info("subway found");
                 }
                 if (type.allow.contains("tram") || (type.allow.isEmpty() && !type.disallow.contains("tram")))
             	{
                     modes.add(TransportMode.tram);
                     modes.add(TransportMode.pt);
+                    log.info("tram found");
                 }
                 if (type.allow.contains("rail") || (type.allow.isEmpty() && !type.disallow.contains("rail")))
                 {
                     modes.add(TransportMode.rail);
                     modes.add(TransportMode.pt);
+                    log.info("rail found");
                 }
                 if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
                 {
@@ -385,7 +388,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
         }
 
         // clean up network
-        //new NetworkCleaner().run(network);
+        new NetworkCleaner().run(network);
 
         // also clean lanes
         lanes.getLanesToLinkAssignments().keySet().removeIf(l2l -> !network.getLinks().containsKey(l2l));
