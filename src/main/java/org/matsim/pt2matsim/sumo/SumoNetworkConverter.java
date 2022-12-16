@@ -137,7 +137,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
         Lanes lanes = LanesUtils.createLanesContainer();
 
         SumoNetworkHandler handler = convert(network, lanes);
-        log.info("end conversion");
+        
         calculateLaneCapacities(network, lanes);
 
         // This needs to run without errors, otherwise network is broken
@@ -299,19 +299,16 @@ public class SumoNetworkConverter implements Callable<Integer> {
                 {
                     modes.add(TransportMode.subway);
                     modes.add(TransportMode.pt);
-                    log.info("subway found");
                 }
                 if (type.allow.contains("tram") || (type.allow.isEmpty() && !type.disallow.contains("tram")))
             	{
                     modes.add(TransportMode.tram);
                     modes.add(TransportMode.pt);
-                    log.info("tram found");
                 }
                 if (type.allow.contains("rail") || (type.allow.isEmpty() && !type.disallow.contains("rail")))
                 {
                     modes.add(TransportMode.rail);
                     modes.add(TransportMode.pt);
-                    log.info("rail found");
                 }
                 if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
                 {
@@ -394,7 +391,6 @@ public class SumoNetworkConverter implements Callable<Integer> {
         new NetworkCleaner().run(network);*/
         
         // also clean lanes
-        log.info("start cleaning lanes");
         lanes.getLanesToLinkAssignments().keySet().removeIf(l2l -> !network.getLinks().containsKey(l2l));
 
         for (List<SumoNetworkHandler.Connection> connections : sumoHandler.connections.values()) {
@@ -418,7 +414,6 @@ public class SumoNetworkConverter implements Callable<Integer> {
                 lane.addToLinkId(toLink);
             }
         }
-        log.info("end cleaning lanes");
         int removed = 0;
 
         Iterator<LanesToLinkAssignment> it = lanes.getLanesToLinkAssignments().values().iterator();
