@@ -294,6 +294,7 @@ public class SumoNetworkConverter implements Callable<Integer> {
             if (edge.type.startsWith("railway")) 
             {
                 modes.add(TransportMode.train);
+                modes.add(TransportMode.pt);
                 if (type.allow.contains("rail_urban") || (type.allow.isEmpty() && !type.disallow.contains("rail_urban")))
                 {
                     modes.add(TransportMode.subway);
@@ -389,7 +390,8 @@ public class SumoNetworkConverter implements Callable<Integer> {
         }
         
         // clean up network
-        new NetworkCleaner().run(network);
+        /**
+        new NetworkCleaner().run(network);*/
         
         // also clean lanes
         log.info("start cleaning lanes");
