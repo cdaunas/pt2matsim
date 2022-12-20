@@ -293,28 +293,45 @@ public class SumoNetworkConverter implements Callable<Integer> {
             
             if (edge.type.startsWith("railway")) 
             {
-                modes.add(TransportMode.train);
+                //modes.add(TransportMode.train);
                 modes.add(TransportMode.pt);
-                if (type.allow.contains("rail_urban") || (type.allow.isEmpty() && !type.disallow.contains("rail_urban")))
+                /**if (type.allow.contains("rail_urban") || (type.allow.isEmpty() && !type.disallow.contains("rail_urban")))
                 {
                     modes.add(TransportMode.subway);
                     modes.add(TransportMode.pt);
-                }
+                }*/
                 if (type.allow.contains("tram") || (type.allow.isEmpty() && !type.disallow.contains("tram")))
             	{
                     modes.add(TransportMode.tram);
-                    modes.add(TransportMode.pt);
                 }
                 if (type.allow.contains("rail") || (type.allow.isEmpty() && !type.disallow.contains("rail")))
                 {
                     modes.add(TransportMode.rail);
-                    modes.add(TransportMode.pt);
+                    modes.add(TransportMode.train);
                 }
-                if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
+                /**if (type.allow.contains("pedestrian") || (type.allow.isEmpty() && !type.disallow.contains("pedestrian")))
                 {
                     modes.add(TransportMode.pedestrian);
                     modes.add(TransportMode.walk);
-                }            
+                }*/            
+            }
+
+            if (edge.type.startsWith("railway.highspeed"))
+            {
+                modes.add(TransportMode.train);
+                modes.add(TransportMode.pt);
+            }
+
+            if (edge.type.startsWith("railway.light_rail"))
+            {
+                modes.add(TransportMode.tram);
+                modes.add(TransportMode.pt);
+            }
+
+            if (edge.type.startsWith("railway.subway"))
+            {
+                modes.add(TransportMode.subway);
+                modes.add(TransportMode.pt);
             }
            
 
