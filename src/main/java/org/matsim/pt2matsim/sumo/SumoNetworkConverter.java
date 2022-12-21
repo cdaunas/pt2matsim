@@ -141,12 +141,12 @@ public class SumoNetworkConverter implements Callable<Integer> {
         calculateLaneCapacities(network, lanes);
 
         // This needs to run without errors, otherwise network is broken
-        /**
+        
         network.getLinks().values().forEach(link -> {
             LanesToLinkAssignment l2l = lanes.getLanesToLinkAssignments().get(link.getId());
             if (l2l != null)
                 LanesUtils.createLanes(link, l2l);
-        });*/
+        });
 
         new NetworkWriter(network).write(output.toAbsolutePath().toString());
         new LanesWriter(lanes).write(output.toAbsolutePath().toString().replace(".xml", "-lanes.xml"));
@@ -404,8 +404,8 @@ public class SumoNetworkConverter implements Callable<Integer> {
         }
         
         // clean up network
-        /**
-        new NetworkCleaner().run(network);*/
+        
+        new NetworkCleaner().run(network);
         
         // also clean lanes
         lanes.getLanesToLinkAssignments().keySet().removeIf(l2l -> !network.getLinks().containsKey(l2l));
